@@ -8,11 +8,21 @@
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
       <script src = "https://code.jquery.com/jquery-1.11.3.min.js"></script>
       <script src = "https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+      <script src="cordova.js"></script>
       <script>
             $(document).on("pagecreate","#profile", function () {
-                alert("Hello World");
+                alert("Cordova version: " + device.cordova + "\n" +
+                    "Device model: " + device.model + "\n" +
+                    "Device platform: " + device.platform + "\n" +
+                    "Device UUID: " + device.uuid + "\n" +
+                    "Device version: " + device.version);
             });
-        </script>
+      </script>
+      <style>
+      @media (width:320px) and (height: 480px) {
+
+      }
+      </style>
     </head>
    <body>
       <div data-role = "page" id = "splashscreen">
