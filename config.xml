@@ -8,7 +8,7 @@
   <!-- Support for Cordova 5.0.0 plugin system -->
   <plugin name="cordova-plugin-whitelist" version="1" />
   <plugin name="cordova-plugin-device" version="2.0.3" />
-  <plugin name="cordova-plugin-media-capture" version="2">
+  <plugin name="cordova-plugin-media-capture" version="2" />
   <allow-intent href="http://*/*" />
   <allow-intent href="https://*/*" />
   <allow-intent href="tel:*" />
