@@ -3,24 +3,36 @@
    <head>
        <title> Ryde </title>
       <meta name = "viewport" content = "width = device-width, initial-scale = 1">
-      <link rel = "stylesheet" href = "https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-      <script src = "https://code.jquery.com/jquery-1.11.3.min.js"></script>
-      <script src = "https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+      <link rel = "stylesheet" href = "jquery.mobile-1.4.5.min.css">
+      <link rel="stylesheet" href="bootstrap.min.css">
+      <script src="bootstrap.min.js"></script>
+      <script src = "jquery-1.11.3.min.js"></script>
+      <script src="cordova.js"></script>
+      <script src = "jquery.mobile-1.4.5.min.js"></script>
       <script>
             $(document).on("pagecreate","#profile", function () {
-                alert("Cordova version: " + device.cordova + "\n" +
-                    "Device model: " + device.model + "\n" +
-                    "Device platform: " + device.platform + "\n" +
-                    "Device UUID: " + device.uuid + "\n" +
-                    "Device version: " + device.version);
+                //do nothing here
             });
+            function imageCapture() {
+                var options = {
+                    limit: 1
+                };
+                navigator.device.capture.captureImage(onSuccess, onError, options);
+
+                function onSuccess(mediaFiles) {
+                    var i, path, len;
+                    for (i = 0, len = mediaFiles.length; i < len; i += 1) {
+                        path = mediaFiles[i].fullPath;
+                        console.log(mediaFiles);
+                    }
+                }
+
+                function onError(error) {
+                    navigator.notification.alert('Error code: ' + error.code, null, 'Capture Error');
+                }
+            }
       </script>
       <style>
-      @media (width:320px) and (height: 480px) {
-
-      }
       </style>
     </head>
    <body>
@@ -48,7 +60,10 @@
                     <input type="password" class="form-control" placeholder="Password">
                     <button class="text-center btn btn-primary"> Login </button>
                 </form>
-                <p><a href = "#splashscreen">Back to previous page</a></p>
+                <p>
+                    <a href = "#splashscreen">Back to previous page</a>
+                </p>
+                <button class="btn btn-warning" onclick="imageCapture()"> Image </button>
             </div>         
             <div data-role = "footer" class="fixed-bottom">
                 <nav class="navbar justify-content-center">
