@@ -5,6 +5,7 @@
   <author href="http://cordova.io" email="dev@cordova.apache.org">Apache Cordova Team </author>
   <content src="index.html" />
   <access origin="*" />
+  <phonegap_version> 8.0.0 </phonegap_version>
   <!-- Support for Cordova 5.0.0 plugin system -->
   <plugin name="cordova-plugin-whitelist" version="1" />
   <plugin name="cordova-plugin-device" version="2.0.3" />
