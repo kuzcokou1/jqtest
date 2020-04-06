@@ -1,91 +1,48 @@
 <!DOCTYPE html>
-<html>
-   <head>
-       <title> Ryde </title>
-      <meta name = "viewport" content = "width = device-width, initial-scale = 1">
-      <link rel = "stylesheet" href = "jquery.mobile-1.4.5.min.css">
-      <link rel="stylesheet" href="bootstrap.min.css">
-      <script src="bootstrap.min.js"></script>
-      <script src = "jquery-1.11.3.min.js"></script>
-      <script src="cordova.js"></script>
-      <script src = "jquery.mobile-1.4.5.min.js"></script>
-      <script>
-            $(document).on("pagecreate","#profile", function () {
-                //do nothing here
-            });
-            function imageCapture() {
-                var options = {
-                    limit: 1
-                };
-                navigator.device.capture.captureImage(onSuccess, onError, options);
-
-                function onSuccess(mediaFiles) {
-                    var i, path, len;
-                    for (i = 0, len = mediaFiles.length; i < len; i += 1) {
-                        path = mediaFiles[i].fullPath;
-                        console.log(mediaFiles);
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Test</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+  <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+</head>
+<body>
+    <ons-navigator id="myNavigator" page="grid.html" animation="slide"></ons-navigator>
+    <template id="grid.html">
+        <ons-page>
+            <div class="container-fluid">
+                <center class="mt-5">
+                    <img src="" width="60%" alt="">
+                </center>
+                <h1 class="text-center text-primary"> Get ready to Launch Your App in <strong class="text-success"> Seconds </strong></h1>
+                <p class="text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, autem. Dolorum quam quasi ullam possimus voluptate! Odio, cumque debitis! Mollitia facilis illum perspiciatis quidem vel itaque maiores nostrum corporis maxime!</p>
+            </div>
+            <div class="p-4 m-4"></div>
+            <div class="container">
+                <button class="ui button primary w-100" onclick="push('signup')"> Get Started </button>
+            </div>
+            <div class="w-100"></div>
+            <script>
+                ons.getScriptPage().onInit = function() {
+                    var first_start = localStorage.getItem("firstStart");
+                    if (first_start != "") {
+                        push('login');
                     }
-                }
-
-                function onError(error) {
-                    navigator.notification.alert('Error code: ' + error.code, null, 'Capture Error');
-                }
-            }
-      </script>
-      <style>
-      </style>
-    </head>
-   <body>
-      <div data-role = "page" id = "splashscreen">
-            <div data-role = "header">
-                <h1>Header Text</h1>
-            </div>
-            <div role = "main" class = "ui-content">
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                        Lorem Ipsum has been the  industry's standard dummy text ever since the 
-                        1500s.</p>           
-                <p><a href = "#login">Back to previous page</a></p>
-            </div>         
-            <div data-role = "footer">
-                <h4>Footer Text</h4>
-            </div>
-      </div>
-      <div data-role = "page" id="login">
-            <div data-role = "header">
-                <h1> Login Page </h1>
-            </div>
-            <div role = "main" class = "ui-content">
-                <form action="" method="POST" class="form">
-                    <input type="text" class="form-control" placeholder="Email">
-                    <input type="password" class="form-control" placeholder="Password">
-                    <button class="text-center btn btn-primary"> Login </button>
-                </form>
-                <p>
-                    <a href = "#splashscreen">Back to previous page</a>
-                </p>
-                <button class="btn btn-warning" onclick="imageCapture()"> Image </button>
-            </div>         
-            <div data-role = "footer" class="fixed-bottom">
-                <nav class="navbar justify-content-center">
-                    <a href="" class="navbar-brand"> Home </a>
-                    <a href="" class="navbar-brand"> Orders </a>
-                    <a href="#profile" class="navbar-brand"> Account </a>
-                </nav>
-            </div>
-      </div>
-      <div data-role = "page" id="signup"></div>
-      <div data-role = "page" id="dashboard"></div>
-      <div data-role = "page" id="profile">
-          <div class="ui-content">
-              <p id="clicker"> This is the main window </p>
-          </div>
-      </div>
-      <div data-role = "page" id="location"></div>
-      <div data-role = "page" id="payment"></div>
-      <div data-role = "page" id="identity"></div>
-      <div data-role = "page" id="panic"></div>
-      <div data-role = "page" id="chat"></div>
-      <div data-role = "page" id="ranking"></div>
-      <div data-role = "page" id="history"></div>
-   </body>
+                    else {
+                        this.onShow = function() {
+                            localStorage.setItem("firstStart", "True");
+                        };
+                    }
+                };
+            </script>
+        </ons-page>
+    </template>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</body>
 </html>
