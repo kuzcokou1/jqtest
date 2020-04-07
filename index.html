@@ -21,23 +21,25 @@
                 <h1 class="text-center text-primary"> Get ready to Launch Your App in <strong class="text-success"> Seconds </strong></h1>
                 <p class="text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, autem. Dolorum quam quasi ullam possimus voluptate! Odio, cumque debitis! Mollitia facilis illum perspiciatis quidem vel itaque maiores nostrum corporis maxime!</p>
             </div>
+            <button class="button" id = "vibration">VIBRATION</button>
+            <button class="button" id = "vibrationPattern">PATTERN</button>
             <div class="p-4 m-4"></div>
             <div class="container">
                 <button class="ui button primary w-100" onclick="push('signup')"> Get Started </button>
             </div>
             <div class="w-100"></div>
             <script>
-                ons.getScriptPage().onInit = function() {
-                    var first_start = localStorage.getItem("firstStart");
-                    if (first_start != "") {
-                        push('login');
-                    }
-                    else {
-                        this.onShow = function() {
-                            localStorage.setItem("firstStart", "True");
-                        };
-                    }
-                };
+                document.getElementById("vibration").addEventListener("click", vibration);
+                document.getElementById("vibrationPattern").addEventListener("click", vibrationPattern);
+                function vibration() {
+                    var time = 3000;
+                    navigator.vibrate(time);
+                }
+
+                function vibrationPattern() {
+                    var pattern = [1000, 1000, 1000, 1000];
+                    navigator.vibrate(pattern);
+                }
             </script>
         </ons-page>
     </template>
