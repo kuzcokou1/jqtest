@@ -17,5 +17,5 @@
       Hardeep Shoker
   </author>
     <plugin name="cordova-plugin-vibration" />
-    
+    <access origin="*" />
 </widget>
