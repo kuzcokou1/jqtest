@@ -7,14 +7,15 @@
 
 <!-- versionCode is optional and Android only -->
 
-  <name> JQTest </name>
+  <name> Naluus </name>
 
   <description>
-      Sample application to test out onsen
+      Memes, Memes and More Memes
   </description>
   <preference name="phonegap-version" value="cli-9.0.0" />
   <author href="https://build.phonegap.com" email="support@phonegap.com">
       Hardeep Shoker
   </author>
     <plugin name="cordova-plugin-vibration" />
+    
 </widget>

@@ -75,11 +75,11 @@
                <div class="center"> Naluus &copy; 2020 </div>
             </ons-toolbar>
             <ons-tabbar swipeable position="bottom" class="ml-1 mr-1 shadow">
-                <ons-tab page="dashboard.html" label="Trending">
+                <ons-tab page="dashboard.html" label="Trending" active>
                 </ons-tab>
                 <ons-tab page="explore.html" label="explore">
                 </ons-tab>
-                <ons-tab page="about.html" label="About" active>
+                <ons-tab page="about.html" label="About">
                 </ons-tab> 
             </ons-tabbar>
         </ons-page>
@@ -155,9 +155,6 @@
     </template>
     <template id="explore.html">
         <ons-page>
-            <ons-fab position="bottom right" onclick="refresh()">
-                <ons-icon> <i class="fa fa-refresh" aria-hidden="true"></i></ons-icon>
-              </ons-fab>
             <div class="loader">
 
             </div>
