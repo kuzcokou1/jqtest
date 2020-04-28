@@ -75,9 +75,9 @@
                <div class="center"> Naluus &copy; 2020 </div>
             </ons-toolbar>
             <ons-tabbar swipeable position="bottom" class="ml-1 mr-1 shadow">
-                <ons-tab page="dashboard.html" label="Trending" active>
+                <ons-tab page="dashboard.html" label="Trending">
                 </ons-tab>
-                <ons-tab page="explore.html" label="explore">
+                <ons-tab page="explore.html" label="explore" active>
                 </ons-tab>
                 <ons-tab page="about.html" label="About">
                 </ons-tab> 
@@ -132,9 +132,6 @@
                                     </div> \
                                     <div class="content"> \
                                         <a class="header"> '+value.title+' </a> \
-                                    </div> \
-                                    <div class="extra content"> \
-                                        <a href="'+value.url+'" download> <i class="fas fa-download fa-2x" aria-hidden="true"></i> </a> \
                                     </div> <hr>';
                                 });
                                 
@@ -159,104 +156,52 @@
             <div class="loader">
 
             </div>
-            <div class="explore">
+            <div class="explore ui container">
 
             </div>
             <ons-list>
                 <ons-lazy-repeat id="infinite-list"></ons-lazy-repeat>
             </ons-list>
             <script>
-                function meme() {
-                    var data;
-                    var url = "https://meme-api.herokuapp.com/gimme/memes";
-                    $.getJSON(url, function (response) {
-                        data = response;
-                    });
-                    return data;
-                }
-                function refresh() {
-                    var infiniteList = document.getElementById('infinite-list');
-                    infiniteList.refresh();
-                }
+                
                 ons.getScriptPage().onInit = function() {
                     this.onShow = function() {
-                        var response = null;
-                        var infiniteList = document.getElementById('infinite-list');
-                        infiniteList.delegate = {
-                            countItems: function() {
-                                return 100;
+                        $.ajax({
+                            url: 'https://meme-api.herokuapp.com/gimme/memes/30',
+                            beforeSend: function() {
+                                $('.loader').html('<ons-progress-bar indeterminate></ons-progress-bar>')
                             },
-                            createItemContent: function(i) {
-                                // m = meme();
-                                // console.log(m);
-                                var data = [];
-                                var url = "https://meme-api.herokuapp.com/gimme/memes";
-                                $.ajax({
-                                    url: url,
-                                    async: false,
-                                    dataType: 'json',
-                                    success: function(json) {
-                                        data = json;
-                                        console.log();
-                                    }
+                            async: true,
+                            complete: function () {
+                                //$('.loader').html('');
+                            }, 
+                            success: function (data) {
+                                $('.loader').html('');
+                                var nl = '';
+                                console.log(data);
+                                $.each(data['memes'], function (item, value) {
+                                    //console.log(value);
+                                    nl = nl + '<div class="ui card w-100 shadow shadow"> \
+                                    <div class="image"> \
+                                        <img src="'+value.url+'" alt="'+value.title+'"> \
+                                    </div> \
+                                    <div class="content"> \
+                                        <a class="header"> '+value.title+' </a> \
+                                    </div> </div> <hr>';
                                 });
-                                return ons.createElement('<ons-list-item> \
-                                    <div class="ui card w-100 shadow shadow"> \
-                                        <div class="image"> \
-                                            <img src="'+data.url+'" alt="'+data.title+'"> \
-                                        </div> \
-                                        <div class="content"> \
-                                            <a class="header"> '+data.title+' </a> \
-                                        </div> \
-                                        <div class="extra content"> \
-                                            <a href="'+data.url+'" download> <i class="fas fa-download fa-2x" aria-hidden="true"></i> </a> \
-                                        </div> </ons-list-item> <hr> ');
-                            },
-                            configureItemScope: function(index, itemScope) {
                                 
+                                $('.explore').html(nl);
+                                //console.log(data);
                             },
-                            calculateItemHeight: function (index) {
-                                return 10;
-                            }
-                        };
-                        // $.ajax({
-                        //     url: 'https://meme-api.herokuapp.com/gimme/memes/5'
-                        //     beforeSend: function() {
-                        //         $('.loader').html('<ons-progress-bar indeterminate></ons-progress-bar>')
-                        //     },
-                        //     complete: function () {
-                        //         //$('.loader').html('');
-                        //     }, 
-                        //     success: function (data) {
-                        //         $('.loader').html('');
-                        //         var nl = '';
-                        //         console.log(data);
-                        //         $.each(data['memes'], function (item, value) {
-                        //             //console.log(value);
-                        //             nl = nl + '<div class="ui card w-100 shadow shadow"> \
-                        //             <div class="image"> \
-                        //                 <img src="'+value.url+'" alt="'+value.title+'"> \
-                        //             </div> \
-                        //             <div class="content"> \
-                        //                 <a class="header"> '+value.title+' </a> \
-                        //             </div> \
-                        //             <div class="extra content"> \
-                        //                 <a href="'+value.url+'" download> <i class="fas fa-download fa-2x" aria-hidden="true"></i> </a> \
-                        //             </div> <hr>';
-                        //         });
-                                
-                        //         $('#dash_memes').html(nl);
-                        //         //console.log(data);
-                        //     },
-                        //     error: function () {
-                        //         //$('.loader').html('');
-                        //         $('.loader').html('<div class="ui segment message warning w-100 shadow"> \
-                        //             There was an error in communication here \
-                        //         </div>');
-                        //         //ons.notification.toast('There was a connection error', { timeout: 1000, animation: 'fall' });
-                        //     } 
-                        // });
-                    };
+                            error: function () {
+                                //$('.loader').html('');
+                                $('.loader').html('<div class="ui segment message warning w-100 shadow"> \
+                                    There was an error in communication here \
+                                </div>');
+                                //ons.notification.toast('There was a connection error', { timeout: 1000, animation: 'fall' });
+                            } 
+                        });
+                    }   
                 };
             </script>
         </ons-page>
@@ -307,9 +252,9 @@
                                         response.data.chargeResponseCode == "00" ||
                                         response.data.chargeResponseCode == "0"
                                     ) {
-                                        push('about');
+                                        push('home');
                                     } else {
-                                        push('about');
+                                        push('home');
                                         // redirect to a failure page.
                                     }
                                     x.close();
