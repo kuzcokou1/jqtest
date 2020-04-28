@@ -3,47 +3,336 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Test</title>
-    <link rel="stylesheet" href="bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
-    <link rel="stylesheet" href="onsenui/css/onsenui.css">
-  <link rel="stylesheet" href="onsenui/css/onsen-css-components.min.css">
-  <script src="onsenui/js/onsenui.min.js"></script>
+    <title> Naluus </title>
+    <link rel="stylesheet" href="static/bootstrap.min.css">
+    <link rel="stylesheet" href="static/onsen-css-components.min.css">
+    <link rel="stylesheet" href="static/onsenui.min.css">
+    <link rel="stylesheet" href="static/semantic.min.css">
+    <script src="static/jquery-3.1.1.min.js"></script>
+    <script src="static/onsenui.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <script>
+        ons.platform.select('android');
+    </script>
 </head>
 <body>
-    <ons-navigator id="myNavigator" page="grid.html" animation="slide"></ons-navigator>
-    <template id="grid.html">
+    <ons-navigator id="myNavigator" page='home.html'> </ons-navigator>
+    <template id="start.html">
         <ons-page>
-            <div class="container-fluid">
-                <center class="mt-5">
-                    <img src="" class="jumbotron" width="60%" alt="">
+            <div class="container pt-4">
+                <center>
+                    <img src="" alt="Insert Image here ">
                 </center>
-                <h1 class="text-center text-primary"> Get ready to Launch Your App in <strong class="text-success"> Seconds </strong></h1>
-                <p class="text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, autem. Dolorum quam quasi ullam possimus voluptate! Odio, cumque debitis! Mollitia facilis illum perspiciatis quidem vel itaque maiores nostrum corporis maxime!</p>
+                <div class="jumbotron ui shadow message positive">
+                    <h1 class="display-3"> Naluus </h1>
+                    <p class="lead"> One Source for financial information</p>
+                    <hr class="my-2">
+                    <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto eum sit, sint velit natus, debitis alias similique fugit, quaerat veniam consequatur optio repudiandae dolores? Non illum adipisci fugiat vitae tempore? </p>
+                </div>
+                <div class="fixed-bottom pb-3">
+                    <center>
+                        <button onclick="push('walkthrough')" class="btn btn-primary btn-lg">Get Started </button>
+                    </center>
+                </div>
             </div>
-            <button class="button" id = "vibration">VIBRATION</button>
-            <button class="button" id = "vibrationPattern">PATTERN</button>
-            <div class="p-4 m-4"></div>
-            <div class="container">
-                <button class="ui button primary w-100" onclick="push('signup')"> Get Started </button>
-            </div>
-            <div class="w-100"></div>
             <script>
-                document.getElementById("vibration").addEventListener("click", vibration);
-                document.getElementById("vibrationPattern").addEventListener("click", vibrationPattern);
-                function vibration() {
-                    var time = 3000;
-                    navigator.vibrate(time);
-                }
-
-                function vibrationPattern() {
-                    var pattern = [1000, 1000, 1000, 1000];
-                    navigator.vibrate(pattern);
-                }
+                ons.getScriptPage().onInit = function() {
+                    var first_start = localStorage.getItem("firstStart");
+                    if (first_start !== "") {
+                        localStorage.setItem("firstStart", "Done");
+                        push('walkthrough');
+                    }
+                    else if (first_start == "Done") {
+                        this.onShow = function() {
+                            push('home');
+                        };
+                    }
+                };
             </script>
         </ons-page>
     </template>
-    <script src="jquery-1.11.3.min.js"></script>
-    <script src="bootstrap.min.js"></script>
+    <template id="walkthrough.html">
+        <ons-page>
+            <div class="container-fluid">
+                <center class="mt-5">
+                    <img src="static/app-development.png" width="60%" alt="">
+                </center>
+                <h1 class="text-center text-primary"> Recieve all your financial related information in <strong class="text-success"> One Place </strong></h1>
+                <p class="text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum, vel voluptatibus veniam dignissimos nam quis quaerat! Similique dolore nisi, ducimus fugit ipsa, sequi, facere odit amet facilis debitis earum officiis.
+                    
+                </p>
+            </div>
+            <div class="p-4 m-4"></div>
+            <div class="container ui grid">
+                <button class="ui button primary eight wide column" onclick="push('home')"> Start </button>
+            </div>
+            <div class="w-100"></div>
+        </ons-page>
+    </template>
+    <template id="home.html">
+        <ons-page>
+            <ons-toolbar>
+               <div class="center"> Naluus &copy; 2020 </div>
+            </ons-toolbar>
+            <ons-tabbar swipeable position="bottom" class="ml-1 mr-1 shadow">
+                <ons-tab page="dashboard.html" label="Trending">
+                </ons-tab>
+                <ons-tab page="explore.html" label="explore">
+                </ons-tab>
+                <ons-tab page="about.html" label="About" active>
+                </ons-tab> 
+            </ons-tabbar>
+        </ons-page>
+    </template>
+    <template id="dashboard.html">
+        <ons-page>
+            <div class="loader">
+
+            </div>
+            <div id="dash_advert" class="ui leaderboard test ad w-100 bg-danger text-white" data-text="AdSpace">
+
+            </div>
+
+            <div id="dash_watchlist">
+
+            </div> <hr>
+            <div id="dash_news">
+                <div class="container">
+                    <h6> Top 5 </h6>
+                </div>
+                <div class="ui grid container d_news">
+                    
+                </div>
+            </div> <hr>
+            <div id="dash_memes">
+
+            </div>
+            <script>
+                ons.getScriptPage().onInit = function() {
+                    this.onShow = function() {
+                        var response = null; 
+                        $.ajax({
+                            url: 'https://meme-api.herokuapp.com/gimme/memes/5',
+                            beforeSend: function() {
+                                $('.loader').html('<ons-progress-bar indeterminate></ons-progress-bar>')
+                            },
+                            complete: function () {
+                                //$('.loader').html('');
+                            }, 
+                            success: function (data) {
+                                $('.loader').html('');
+                                var nl = '';
+                                console.log(data);
+                                $.each(data['memes'], function (item, value) {
+                                    //console.log(value);
+                                    nl = nl + '<div class="ui card w-100 shadow shadow"> \
+                                    <div class="image"> \
+                                        <img src="'+value.url+'" alt="'+value.title+'"> \
+                                    </div> \
+                                    <div class="content"> \
+                                        <a class="header"> '+value.title+' </a> \
+                                    </div> \
+                                    <div class="extra content"> \
+                                        <a href="'+value.url+'" download> <i class="fas fa-download fa-2x" aria-hidden="true"></i> </a> \
+                                    </div> <hr>';
+                                });
+                                
+                                $('#dash_memes').html(nl);
+                                //console.log(data);
+                            },
+                            error: function () {
+                                //$('.loader').html('');
+                                $('.loader').html('<div class="ui segment message warning w-100 shadow"> \
+                                    There was an error in communication here \
+                                </div>');
+                                //ons.notification.toast('There was a connection error', { timeout: 1000, animation: 'fall' });
+                            } 
+                        });
+                    };
+                };
+            </script>
+        </ons-page>
+    </template>
+    <template id="explore.html">
+        <ons-page>
+            <ons-fab position="bottom right" onclick="refresh()">
+                <ons-icon> <i class="fa fa-refresh" aria-hidden="true"></i></ons-icon>
+              </ons-fab>
+            <div class="loader">
+
+            </div>
+            <div class="explore">
+
+            </div>
+            <ons-list>
+                <ons-lazy-repeat id="infinite-list"></ons-lazy-repeat>
+            </ons-list>
+            <script>
+                function meme() {
+                    var data;
+                    var url = "https://meme-api.herokuapp.com/gimme/memes";
+                    $.getJSON(url, function (response) {
+                        data = response;
+                    });
+                    return data;
+                }
+                function refresh() {
+                    var infiniteList = document.getElementById('infinite-list');
+                    infiniteList.refresh();
+                }
+                ons.getScriptPage().onInit = function() {
+                    this.onShow = function() {
+                        var response = null;
+                        var infiniteList = document.getElementById('infinite-list');
+                        infiniteList.delegate = {
+                            countItems: function() {
+                                return 100;
+                            },
+                            createItemContent: function(i) {
+                                // m = meme();
+                                // console.log(m);
+                                var data = [];
+                                var url = "https://meme-api.herokuapp.com/gimme/memes";
+                                $.ajax({
+                                    url: url,
+                                    async: false,
+                                    dataType: 'json',
+                                    success: function(json) {
+                                        data = json;
+                                        console.log();
+                                    }
+                                });
+                                return ons.createElement('<ons-list-item> \
+                                    <div class="ui card w-100 shadow shadow"> \
+                                        <div class="image"> \
+                                            <img src="'+data.url+'" alt="'+data.title+'"> \
+                                        </div> \
+                                        <div class="content"> \
+                                            <a class="header"> '+data.title+' </a> \
+                                        </div> \
+                                        <div class="extra content"> \
+                                            <a href="'+data.url+'" download> <i class="fas fa-download fa-2x" aria-hidden="true"></i> </a> \
+                                        </div> </ons-list-item> <hr> ');
+                            },
+                            configureItemScope: function(index, itemScope) {
+                                
+                            },
+                            calculateItemHeight: function (index) {
+                                return 10;
+                            }
+                        };
+                        // $.ajax({
+                        //     url: 'https://meme-api.herokuapp.com/gimme/memes/5'
+                        //     beforeSend: function() {
+                        //         $('.loader').html('<ons-progress-bar indeterminate></ons-progress-bar>')
+                        //     },
+                        //     complete: function () {
+                        //         //$('.loader').html('');
+                        //     }, 
+                        //     success: function (data) {
+                        //         $('.loader').html('');
+                        //         var nl = '';
+                        //         console.log(data);
+                        //         $.each(data['memes'], function (item, value) {
+                        //             //console.log(value);
+                        //             nl = nl + '<div class="ui card w-100 shadow shadow"> \
+                        //             <div class="image"> \
+                        //                 <img src="'+value.url+'" alt="'+value.title+'"> \
+                        //             </div> \
+                        //             <div class="content"> \
+                        //                 <a class="header"> '+value.title+' </a> \
+                        //             </div> \
+                        //             <div class="extra content"> \
+                        //                 <a href="'+value.url+'" download> <i class="fas fa-download fa-2x" aria-hidden="true"></i> </a> \
+                        //             </div> <hr>';
+                        //         });
+                                
+                        //         $('#dash_memes').html(nl);
+                        //         //console.log(data);
+                        //     },
+                        //     error: function () {
+                        //         //$('.loader').html('');
+                        //         $('.loader').html('<div class="ui segment message warning w-100 shadow"> \
+                        //             There was an error in communication here \
+                        //         </div>');
+                        //         //ons.notification.toast('There was a connection error', { timeout: 1000, animation: 'fall' });
+                        //     } 
+                        // });
+                    };
+                };
+            </script>
+        </ons-page>
+    </template>
+    <template id="donate" class="html">
+        <ons-page>
+
+        </ons-page>
+    </template>
+    <template id="donate" class="html">
+        <ons-page>
+            
+        </ons-page>
+    </template>
+    <template id="about.html">
+        <ons-page>
+            <div class="ui container pt-3">
+                <h3> About the App</h3>
+                <p> This is a simple mobile app that i built to stream memes from reddit 
+                    directly onto the app. Let me know what you think and if you find the app 
+                    to be very helpful or entertaining, feel free to buy me Coffee <i class="fa fa-coffee" aria-hidden="true"></i>
+                </p>
+                <form>
+                    <script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script>
+                    <input type="number" value="1500" class="form-control" id="amount" placeholder="Amount in UGX"> <br>
+                    <button class="ui button positive" type="button" id="donate"> Buy me Coffee <i class="fa fa-coffee" aria-hidden="true"></i> </button>
+                </form>
+                <script>
+                    const API_publicKey = "FLWPUBK-5d6c87654e9e65b3b80da2c0f476c936-X";
+                    $('#donate').on('click', function () {
+                        var phone = $('#phone').val();
+                        var money = $('#amount').val();
+                        if ((phone == '') || (amount == '')) {
+                            $('#amount').addClass('border border-danger');
+                        }
+                        else {
+                            var x = getpaidSetup({
+                                PBFPubKey: API_publicKey,
+                                customer_email: 'davida.2010@hotmail.com',
+                                amount: money,
+                                currency: "UGX",
+                                txref: "rave-123456", 
+                                onclose: function () {},
+                                callback: function (response) {
+                                    var txref = response.data.txRef; // collect txRef returned and pass to a                    server page to complete status check.
+                                    console.log("This is the response returned after a charge", response);
+                                    if (
+                                        response.data.chargeResponseCode == "00" ||
+                                        response.data.chargeResponseCode == "0"
+                                    ) {
+                                        push('about');
+                                    } else {
+                                        push('about');
+                                        // redirect to a failure page.
+                                    }
+                                    x.close();
+                                }
+                            });
+                        }
+                    });
+                </script>  
+            </div>
+            <script>
+                var pubkey = "FLWPUBK-5d6c87654e9e65b3b80da2c0f476c936-X";
+            </script>
+        </ons-page>
+    </template>
+    <!-- Walkthrough,home, explore,blog,about -->
+    <script>
+        function push(page, pagedata) {
+            document.querySelector('#myNavigator').pushPage(page+'.html', {data: pagedata});
+        }
+    </script>
+    <script src="static/bootstrap.min.js"></script>
+    <script src="static/semantic.min.js"></script>
 </body>
 </html>
