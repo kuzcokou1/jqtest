@@ -10,12 +10,22 @@
   <name> Naluus </name>
 
   <description>
-      Memes, Memes and More Memes
+      Memes, Memes and even More Memes
   </description>
   <preference name="phonegap-version" value="cli-9.0.0" />
   <author href="https://build.phonegap.com" email="support@phonegap.com">
       Hardeep Shoker
   </author>
+  <access origin="*" />
+  <plugin name="cordova-plugin-whitelist" version="1" />
+  <allow-intent href="http://*/*" />
+  <allow-intent href="https://*/*" />
+  <allow-intent href="tel:*" />
+  <allow-intent href="sms:*" />
+  <allow-intent href="mailto:*" />
+  <allow-intent href="geo:*" />
+  <platform name="android">
+    <allow-intent href="market:*" />
+  </platform>
     <plugin name="cordova-plugin-vibration" />
-    <access origin="*" />
 </widget>
